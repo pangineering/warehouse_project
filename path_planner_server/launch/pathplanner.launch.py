@@ -6,10 +6,10 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
-    controller_yaml = os.path.join(get_package_share_directory('robot_navigation'), 'config', 'controller.yaml')
-    bt_navigator_yaml = os.path.join(get_package_share_directory('robot_navigation'), 'config', 'bt_navigator.yaml')
-    planner_yaml = os.path.join(get_package_share_directory('robot_navigation'), 'config', 'planner_server.yaml')
-    recovery_yaml = os.path.join(get_package_share_directory('robot_navigation'), 'config', 'recovery.yaml')
+    controller_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'controller.yaml')
+    bt_navigator_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'bt.yaml')
+    planner_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'planner_server.yaml')
+    recovery_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'recovery.yaml')
 
     return LaunchDescription([
         Node(
@@ -28,13 +28,13 @@ def generate_launch_description():
             parameters=[planner_yaml]
         ),
 
-        Node(
-            package='nav2_recoveries',
-            executable='recoveries_server',
-            name='recoveries_server',
-            output='screen',
-            parameters=[recovery_yaml]
-        ),
+        #Node(
+        #    package='nav2_recoveries',
+        #    executable='recoveries_server',
+        #    name='recoveries_server',
+        #    output='screen',
+        #    parameters=[recovery_yaml]
+       # ),
 
         Node(
             package='nav2_bt_navigator',
@@ -52,7 +52,7 @@ def generate_launch_description():
             parameters=[{'autostart': True},
                         {'node_names': ['planner_server',
                                         'controller_server',
-                                        'recoveries_server',
+                                        #'recoveries_server',
                                         'bt_navigator']}]
         ),
     ])
