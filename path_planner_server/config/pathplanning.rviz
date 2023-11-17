@@ -1,0 +1,30 @@
+# RViz Configuration File
+GlobalOptions:
+  BackgroundColor: 25; 25; 25
+  FixedFrame: map
+
+Displays:
+  RobotModel:
+    Enabled: true
+
+  GlobalCostmap:
+    Enabled: true
+    Topic: /global_costmap/costmap
+    ColorScheme: map
+    Alpha: 0.7
+
+  LocalCostmap:
+    Enabled: true
+    Topic: /local_costmap/costmap
+    ColorScheme: costmap
+    Alpha: 0.5
+
+  GlobalPlan:
+    Enabled: true
+    Topic: /global_path
+    Color: 255; 0; 0
+
+  ParticleCloud:
+    Enabled: true
+    Topic: /particlecloud
+    Color: 0; 255; 0

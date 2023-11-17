@@ -28,13 +28,13 @@ def generate_launch_description():
             parameters=[planner_yaml]
         ),
 
-        #Node(
-        #    package='nav2_recoveries',
-        #    executable='recoveries_server',
-        #    name='recoveries_server',
-        #    output='screen',
-        #    parameters=[recovery_yaml]
-       # ),
+        Node(
+            package='nav2_recoveries',
+            executable='recoveries_server',
+            name='recoveries_server',  # Corrected indentation here
+            output='screen',
+            parameters=[recovery_yaml]
+        ),
 
         Node(
             package='nav2_bt_navigator',
@@ -52,7 +52,7 @@ def generate_launch_description():
             parameters=[{'autostart': True},
                         {'node_names': ['planner_server',
                                         'controller_server',
-                                        #'recoveries_server',
+                                        'recoveries_server',
                                         'bt_navigator']}]
         ),
     ])

@@ -3,6 +3,7 @@ planner_server:
     expected_planner_frequency: 10.0
     use_sim_time: True
     planner_plugins: ["GridBased"]
+    base_frame_id: "robot_base_link"
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
       tolerance: 0.5
