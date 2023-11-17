@@ -6,7 +6,7 @@ amcl:
     alpha3: 0.2
     alpha4: 0.2
     alpha5: 0.2
-    base_frame_id: "robot_odom"
+    base_frame_id: "robot_base_footprint"
     tf_buffer_length: 10.0  # Increase the buffer length as needed
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
