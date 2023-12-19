@@ -6,6 +6,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
+
     # Declare a launch argument for 'map_file'
     declare_map_file_arg = DeclareLaunchArgument(
         'map_file',
@@ -39,5 +40,6 @@ def generate_launch_description():
             name='lifecycle_manager_mapper',
             output='screen',
             parameters=[{'use_sim_time': True}, {'autostart': True}, {'node_names': ['map_server']}],
-        )
+        ),
+
     ])
