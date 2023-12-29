@@ -11,7 +11,6 @@ import time
 import tf2_ros
 from std_msgs.msg import Empty
 from action_msgs.msg import GoalStatus
-from geometry_msgs.msg import PolygonStamped, Point32
 
 class MoveShelfToShip(Node):
     def __init__(self):
@@ -31,35 +30,10 @@ class MoveShelfToShip(Node):
             '/elevator_up',
             10  # Adjust queue size as needed
         )
-        
-        self.is_carrying_shelf = False  # Flag to indicate if the robot is carrying a shelf
-
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
         self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
         self.loaded = False
-    
-        self.publisher = self.create_publisher(PolygonStamped, '/local_costmap/published_footprint', 10)
-
-    def update_footprint_size(self):
-        # Create a PolygonStamped message
-        msg = PolygonStamped()
-        msg.header.frame_id = 'map'  # Set the frame ID as needed
-
-        # Define new points for the updated footprint size
-        points = [
-            Point32(x=5.0, y=-2.0, z=0.0),
-            Point32(x=5.0, y=2.0, z=0.0),
-            Point32(x=-5.0, y=2.0, z=0.0),
-            Point32(x=-5.0, y=-2.0, z=0.0),
-        ]
-
-        msg.polygon.points = points
-
-        # Publish the updated footprint size
-        self.publisher.publish(msg)
-        self.get_logger().info('Published updated footprint size')
-
 
     def move_back(self):
         # Create a Twist message for controlling robot movement
@@ -102,18 +76,12 @@ class MoveShelfToShip(Node):
         self.move_back()
         time.sleep(20)  # Assuming the robot takes 4 seconds to move back
 
-        if self.is_carrying_shelf:
-            self.update_footprint_size()
-
-        #time.sleep(20)
-
-        #self.go_to_shipping()
+        self.go_to_shipping()
 
     def load_shelf(self):
         # Trigger the elevator up action by publishing a message to /elevator_up
         elevator_up_msg = Empty()
         self.elevator_up_publisher.publish(elevator_up_msg)
-        self.is_carrying_shelf = True
         self.get_logger().info("Triggered elevator up action.")
 
     def send_goal(self,x,y,z,qx,qy,qz,qw):

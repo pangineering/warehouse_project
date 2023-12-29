@@ -62,6 +62,17 @@ controller_server:
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
 
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      filters: ["keepout_filter"]
+
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: True
+        filter_info_topic: "/costmap_filter_info"
 local_costmap:
   local_costmap:
     ros__parameters:
@@ -103,4 +114,10 @@ local_costmap:
       static_layer:
         map_subscribe_transient_local: True
       always_send_full_costmap: True
-        
+
+      filters: ["keepout_filter"]
+    
+      keepout_filter:
+        plugin: "nav2_costmap_2d::KeepoutFilter"
+        enabled: True
+        filter_info_topic: "/costmap_filter_info"
