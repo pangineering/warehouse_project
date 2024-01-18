@@ -18,18 +18,25 @@ def generate_launch_description():
         description='Map file name (e.g., warehouse_map_sim.yaml)'
     )
 
-    map_file_param = LaunchConfiguration('map_file')
 
     map_file_param = LaunchConfiguration('map_file')
     return LaunchDescription([
         declare_map_file_arg,
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', '/home/user/ros2_ws/src/warehouse_project/localization_server/config/localization.rviz'],
+            parameters=[{'use_sim_time': False}]
+        ),
         Node(
             package='nav2_map_server',
             executable='map_server',
             name='map_server',
             output='screen',
             parameters=[{
-                'use_sim_time': True,
+                'use_sim_time': False,
                 'yaml_filename': [
                     get_package_share_directory('map_server'),
                     '/config/',
@@ -52,7 +59,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_localization',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': False},
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
         )

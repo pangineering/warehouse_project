@@ -18,13 +18,21 @@ def generate_launch_description():
             default_value=os.path.join(cartographer_config_dir, 'cartographer.lua'),
             description='Path to the Cartographer configuration file',
         ),
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            output='screen',
+            arguments=['-d', '/home/user/ros2_ws/src/warehouse_project/cartographer_slam/config/mapping.rviz'],
+            parameters=[{'use_sim_time': False}]
+        ),
         # Launch the Cartographer node
         Node(
             package='cartographer_ros', 
             executable='cartographer_node', 
             name='cartographer_node',
             output='screen',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': False}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', 'cartographer.lua']
 ,
@@ -35,7 +43,7 @@ def generate_launch_description():
             executable='occupancy_grid_node',
             output='screen',
             name='occupancy_grid_node',
-            parameters=[{'use_sim_time': True}],
+            parameters=[{'use_sim_time': False}],
             arguments=['-resolution', '0.05', '-publish_period_sec', '0.5']
 ,
         ),

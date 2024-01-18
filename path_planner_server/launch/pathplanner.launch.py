@@ -14,7 +14,7 @@ def generate_launch_description():
             name='rviz2',
             output='screen',
             arguments=['-d', '/home/user/ros2_ws/src/warehouse_project/path_planner_server/rviz/pathplanning.rviz'],
-            parameters=[{'use_sim_time': True}]
+            parameters=[{'use_sim_time': False}]
         ),
         Node(
             package='nav2_planner',
@@ -53,7 +53,7 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager',
             output='screen',
-            parameters=[{'use_sim_time': True},
+            parameters=[{'use_sim_time': False},
                         {'autostart': True},
                         {'node_names': ['planner_server', 'controller_server', 'bt_navigator', 'recoveries_server']}],
         ),

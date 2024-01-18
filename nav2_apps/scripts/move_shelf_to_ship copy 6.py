@@ -32,7 +32,7 @@ def main():
     publisher_local_costmap = navigator.create_publisher(PolygonStamped, '/local_costmap/published_footprint', 10)
     
     # Create publishers for cmd_vel and elevator_up
-    publisher_cmd_vel = navigator.create_publisher(Twist, '/cmd_vel', 10)
+    publisher_cmd_vel = navigator.create_publisher(Twist, '/robot/cmd_vel', 10)
     publisher_elevator_up = navigator.create_publisher(Empty, '/elevator_up', 10)
     publisher_elevator_down = navigator.create_publisher(Empty, '/elevator_down', 10)
 
@@ -98,21 +98,15 @@ def main():
     if result == TaskResult.SUCCEEDED:
         print('Goal succeeded!')
         if not loaded:
-            j = 0
             cmd_vel_msg = Twist()
-            while j < 30:
-                print('j: ',j)
-                cmd_vel_msg.linear.x = 0.1  # Adjust linear velocity as needed
-                cmd_vel_msg.angular.z = 0.0  # No rotation
-                
+            cmd_vel_msg.linear.x = 0.1  # Adjust linear velocity as needed
+            cmd_vel_msg.angular.z = 0.0  # No rotation
 
-                # Publish the Twist message to control the robot's movement
-                publisher_cmd_vel.publish(cmd_vel_msg)
-                j += 1
-                time.sleep(1.0)
+            # Publish the Twist message to control the robot's movement
+            publisher_cmd_vel.publish(cmd_vel_msg)
 
             # Wait for the robot to reach the target position (using time.sleep)
-            #time.sleep(150)  # Example sleep duration (2.8 seconds)
+            time.sleep(2)  # Example sleep duration (2.8 seconds)
 
 
             cmd_vel_msg.linear.x = 0.0  # Adjust linear velocity as needed
@@ -120,9 +114,6 @@ def main():
 
             # Publish the Twist message to control the robot's movement
             publisher_cmd_vel.publish(cmd_vel_msg)
-
-
-            time.sleep(5)
 
 
             elevator_up_msg = Empty()
@@ -142,23 +133,16 @@ def main():
 
             msg.polygon.points = points
             publisher_local_costmap.publish(msg)
-            time.sleep(5)
 
-            j = 0
             cmd_vel_msg = Twist()
-            while j < 25:
-                print('j: ',j)
-                cmd_vel_msg.linear.x = -0.1  # Adjust linear velocity as needed
-                cmd_vel_msg.angular.z = 0.0  # No rotation
-                
+            cmd_vel_msg.linear.x = -0.1  # Adjust linear velocity as needed
+            cmd_vel_msg.angular.z = 0.0  # No rotation
 
-                # Publish the Twist message to control the robot's movement
-                publisher_cmd_vel.publish(cmd_vel_msg)
-                j += 1
-                time.sleep(1.0)
+            # Publish the Twist message to control the robot's movement
+            publisher_cmd_vel.publish(cmd_vel_msg)
 
             # Wait for the robot to reach the target position (using time.sleep)
-            time.sleep(5)  # Example sleep duration (2.8 seconds)
+            time.sleep(2)  # Example sleep duration (2.8 seconds)
 
 
             cmd_vel_msg.linear.x = 0.0  # Adjust linear velocity as needed
@@ -342,23 +326,16 @@ def main():
             elevator_down_msg = Empty()
             publisher_elevator_down.publish(elevator_down_msg)
 
-            time.sleep(5)  # Example sleep duration (2.8 seconds)
 
-            j = 0
             cmd_vel_msg = Twist()
-            while j < 25:
-                print('j: ',j)
-                cmd_vel_msg.linear.x = -0.1  # Adjust linear velocity as needed
-                cmd_vel_msg.angular.z = 0.0  # No rotation
-                
+            cmd_vel_msg.linear.x = -0.1  # Adjust linear velocity as needed
+            cmd_vel_msg.angular.z = 0.0  # No rotation
 
-                # Publish the Twist message to control the robot's movement
-                publisher_cmd_vel.publish(cmd_vel_msg)
-                j += 1
-                time.sleep(1.0)
+            # Publish the Twist message to control the robot's movement
+            publisher_cmd_vel.publish(cmd_vel_msg)
 
             # Wait for the robot to reach the target position (using time.sleep)
-          
+            time.sleep(2)  # Example sleep duration (2.8 seconds)
 
 
             cmd_vel_msg.linear.x = 0.0  # Adjust linear velocity as needed
@@ -367,8 +344,6 @@ def main():
             # Publish the Twist message to control the robot's movement
             publisher_cmd_vel.publish(cmd_vel_msg)
             loaded = False
-
-            time.sleep(2)  # Example sleep duration (2.8 seconds)
 
 
 

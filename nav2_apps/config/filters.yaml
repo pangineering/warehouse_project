@@ -1,6 +1,6 @@
 costmap_filter_info_server: # name of your filter info topic
   ros__parameters:
-    use_sim_time: true # true on simulation, false on real robot
+    use_sim_time: false # true on simulation, false on real robot
     type: 0
     filter_info_topic: "/costmap_filter_info" # name of the topic on which this filter will be published
     mask_topic: "/keepout_filter_mask" # name of the topic on which the map will be published
@@ -8,7 +8,7 @@ costmap_filter_info_server: # name of your filter info topic
     multiplier: 1.0
 filter_mask_server:
   ros__parameters:
-    use_sim_time: true  # true on simulation, false on real robot
+    use_sim_time: false  # true on simulation, false on real robot
     frame_id: "map" # this will be mostly constant - uses the map topic
     topic_name: "/keepout_filter_mask" # topic on which map is published
     yaml_filename: "warehouse_map_sim_keepout.yaml" # keepout mask map yaml file name
